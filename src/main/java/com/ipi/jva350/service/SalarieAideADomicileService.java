@@ -25,7 +25,6 @@ public class SalarieAideADomicileService {
 
     /**
      * Créée un nouveau salarié en base de données.
-     *
      * @param salarieAideADomicile à créer
      * @throws SalarieException si son nom est déjà pris ou si l'id est fourni
      */
@@ -38,7 +37,7 @@ public class SalarieAideADomicileService {
         if (salarieAideADomicile.getId() != null) {
             throw new SalarieException("L'id ne doit pas être fourni car il est généré");
         }
-        salarieAideADomicileRepository.save(salarieAideADomicile);
+       salarieAideADomicileRepository.save(salarieAideADomicile);
     }
 
     /**
@@ -50,17 +49,16 @@ public class SalarieAideADomicileService {
      * - marge supplémentaire de 10% du nombre de mois jusqu'à celui du dernier jour de congé
      * - bonus de 1 par année d'ancienneté jusqu'à 10
      * Utilisé par ajouteMois(). NB. ajouteMois() a déjà vérifié que le congé est dans l'année en cours.
-     *
-     * @param moisEnCours                   du salarieAideADomicile
+     * @param moisEnCours du salarieAideADomicile
      * @param congesPayesAcquisAnneeNMoins1 du salarieAideADomicile
-     * @param premierJourDeConge            demandé
-     * @param dernierJourDeConge            demandé
-     * @return arrondi à l'entier le plus proche
      * @parma moisDebutContrat du salarieAideADomicile
+     * @param premierJourDeConge demandé
+     * @param dernierJourDeConge demandé
+     * @return arrondi à l'entier le plus proche
      */
     public long calculeLimiteEntrepriseCongesPermis(LocalDate moisEnCours, double congesPayesAcquisAnneeNMoins1,
-                                                    LocalDate moisDebutContrat,
-                                                    LocalDate premierJourDeConge, LocalDate dernierJourDeConge) {
+                                                      LocalDate moisDebutContrat,
+                                                      LocalDate premierJourDeConge, LocalDate dernierJourDeConge) {
         // proportion selon l'avancement dans l'année, pondérée avec poids plus gros sur juillet et août (20 vs 8) :
         double proportionPondereeDuConge = Math.max(Entreprise.proportionPondereeDuMois(premierJourDeConge),
                 Entreprise.proportionPondereeDuMois(dernierJourDeConge));
@@ -95,13 +93,12 @@ public class SalarieAideADomicileService {
     /**
      * Calcule les jours de congés à décompter, et si valide (voir plus bas) les décompte au salarié
      * et le sauve en base de données
-     *
      * @param salarieAideADomicile TODO nom ?
      * @param jourDebut
-     * @param jourFin              peut être dans l'année suivante mais uniquement son premier jour
+     * @param jourFin peut être dans l'année suivante mais uniquement son premier jour
      * @throws SalarieException si pas de jour décompté, ou avant le mois en cours, ou dans l'année suivante
-     *                          (hors l'exception du premier jour pour résoudre le cas d'un samedi), ou la nouvelle totalité
-     *                          des jours de congé pris décomptés dépasse le nombre acquis en N-1 ou la limite de l'entreprise
+     * (hors l'exception du premier jour pour résoudre le cas d'un samedi), ou la nouvelle totalité
+     * des jours de congé pris décomptés dépasse le nombre acquis en N-1 ou la limite de l'entreprise
      */
     public void ajouteConge(SalarieAideADomicile salarieAideADomicile, LocalDate jourDebut, LocalDate jourFin)
             throws SalarieException {
@@ -117,11 +114,12 @@ public class SalarieAideADomicileService {
         }
 
         // on vérifie que le congé demandé est dans les mois restants de l'année de congés en cours du salarié :
-        if (joursDecomptes.stream().findFirst().isPresent() && joursDecomptes.stream().findFirst().get()
-                .isBefore(salarieAideADomicile.getMoisEnCours())) {
-            throw new SalarieException("Pas possible de prendre de congé avant le mois en cours !");
+        if(joursDecomptes.stream().findFirst().isPresent()){
+            LocalDate tutu = joursDecomptes.stream().findFirst().get();
+            if(tutu.isBefore(salarieAideADomicile.getMoisEnCours())){
+                throw new SalarieException("Pas possible de prendre de congé avant le mois en cours !");
+            }
         }
-
         LinkedHashSet<LocalDate> congesPayesPrisDecomptesAnneeN = new LinkedHashSet<>(joursDecomptes.stream()
                 .filter(d -> !d.isAfter(LocalDate.of(Entreprise.getPremierJourAnneeDeConges(
                         salarieAideADomicile.getMoisEnCours()).getYear() + 1, 5, 31)))
@@ -134,7 +132,7 @@ public class SalarieAideADomicileService {
         }
 
         if (nbCongesPayesPrisDecomptesAnneeN > salarieAideADomicile.getCongesPayesRestantAnneeNMoins1()) {
-            throw new SalarieException("Conges Payes Pris Decomptes (" + nbCongesPayesPrisDecomptesAnneeN
+            throw new SalarieException("Conges Payes Pris Decomptes (" +  nbCongesPayesPrisDecomptesAnneeN
                     + ") dépassent les congés acquis en année N-1 : "
                     + salarieAideADomicile.getCongesPayesRestantAnneeNMoins1());
         }
@@ -145,7 +143,7 @@ public class SalarieAideADomicileService {
                 salarieAideADomicile.getMoisDebutContrat(),
                 jourDebut, jourFin);
         if (nbCongesPayesPrisDecomptesAnneeN < limiteEntreprise) {
-            throw new SalarieException("Conges Payes Pris Decomptes (" + nbCongesPayesPrisDecomptesAnneeN
+            throw new SalarieException("Conges Payes Pris Decomptes (" +  nbCongesPayesPrisDecomptesAnneeN
                     + ") dépassent la limite des règles de l'entreprise : " + limiteEntreprise);
         }
 
@@ -161,7 +159,6 @@ public class SalarieAideADomicileService {
      * Met à jour les jours travaillés et congés payés restants de l'année N, décompte ceux de l'année N-1
      * on déduit un jour de congé entier pour chaque absence. Par exemple lors des vacances, pour savoir combien de jours de congés payés sont consommés, même si ladite absence dure seulement une demi-journée.
      * Si dernier mois de l'année, clôture aussi l'année
-     *
      * @param salarieAideADomicile TODO nom ?
      * @param joursTravailles
      */
@@ -183,7 +180,6 @@ public class SalarieAideADomicileService {
     /**
      * Clôture l'année donnée. Il s'agit d'une année DE CONGES donc du 1er juin au 31 mai.
      * Passe les variables N à N-1
-     *
      * @param salarieAideADomicile
      */
     void clotureAnnee(SalarieAideADomicile salarieAideADomicile) {
