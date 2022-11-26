@@ -122,9 +122,15 @@ public final class Entreprise {
 
 
     public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
-        return d == null ? null
-                : d.getMonthValue() > 5 ? LocalDate.of(d.getMonthValue(), 6, 1)
-                : LocalDate.of(d.getYear() - 1, 6, 1);
+        if(d != null){
+            if (d.getMonthValue() > 5){
+                return LocalDate.of(d.getMonthValue(), 6, 1);
+            } else {
+                return LocalDate.of(d.getYear() - 1, 6, 1);
+            }
+        } else {
+            return null;
+        }
     }
 
     public static boolean estJourFerie(LocalDate jour) {
