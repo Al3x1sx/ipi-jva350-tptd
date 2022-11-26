@@ -125,9 +125,9 @@ public final class Entreprise {
         if(d == null) {
         } else {
             if(d.getMonthValue() > 5){
-                LocalDate.of(d.getMonthValue(), 6, 1);
+                return LocalDate.of(d.getMonthValue(), 6, 1);
                 else {
-                    LocalDate.of(d.getYear() - 1, 6, 1);
+                    return LocalDate.of(d.getYear() - 1, 6, 1);
                 }
             }
         }
