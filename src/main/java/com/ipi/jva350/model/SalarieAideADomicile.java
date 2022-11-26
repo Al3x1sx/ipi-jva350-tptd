@@ -11,7 +11,7 @@ import java.util.Objects;
 @Entity
 public class SalarieAideADomicile {
 
-    public static float CONGES_PAYES_ACQUIS_PAR_MOIS = 2.5f;
+    public static final float congesPayesAcquisParMois = 2.5f;
 
 
     @Id
@@ -20,7 +20,7 @@ public class SalarieAideADomicile {
 
     private String nom;
 
-    public static List<DayOfWeek> joursHabituellementTravailles = new ArrayList<>();
+    protected public static final List<DayOfWeek> joursHabituellementTravailles = new ArrayList<>();
 
     static {
         joursHabituellementTravailles.add(DayOfWeek.MONDAY);
@@ -39,7 +39,7 @@ public class SalarieAideADomicile {
     /** en année N sur l'acquis N-1 */
     @Convert(converter = LinkedHashSetStringConverter.class)
     @Column
-    private LinkedHashSet<LocalDate> congesPayesPris = new LinkedHashSet<LocalDate>();
+    private LinkedHashSet<LocalDate> congesPayesPris = new LinkedHashSet<>();
     private double joursTravaillesAnneeNMoins1= 0;
     private double congesPayesAcquisAnneeNMoins1= 0;
     private double congesPayesPrisAnneeNMoins1= 0;
