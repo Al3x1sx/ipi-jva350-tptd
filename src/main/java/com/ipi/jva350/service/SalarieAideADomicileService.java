@@ -21,7 +21,7 @@ public class SalarieAideADomicileService {
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
 
     public SalarieAideADomicileService() {
-        throw new UnsupportedOperationException();
+
     }
 
     /**
