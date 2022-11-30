@@ -1,16 +1,16 @@
 package com.ipi.jva350.model;
 
-import com.google.type.DateTime;
+// import com.google.type.DateTime;
 //import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.text.SimpleDateFormat;
+// import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
-import java.util.Locale;
+// import java.util.Locale;
 
 class SalarieAideADomicileTest {
 
@@ -60,7 +60,7 @@ class SalarieAideADomicileTest {
         LocalDate yolo2 = LocalDate.parse(daro);
 
         SalarieAideADomicile salarie = new SalarieAideADomicile();
-        LinkedHashSet<LocalDate> expectedhashset = new LinkedHashSet<>();
+        // LinkedHashSet<LocalDate> expectedhashset = new LinkedHashSet<>();
 
         LinkedHashSet<LocalDate> res = salarie.calculeJoursDeCongeDecomptesPourPlage(yolo, yolo2);
 

@@ -95,7 +95,7 @@ public class SalarieAideADomicileService {
     /**
      * Calcule les jours de congés à décompter, et si valide (voir plus bas) les décompte au salarié
      * et le sauve en base de données
-     * @param salarieAideADomicile TODO nom ?
+     * @param salarieAideADomicile
      * @param jourDebut
      * @param jourFin peut être dans l'année suivante mais uniquement son premier jour
      * @throws SalarieException si pas de jour décompté, ou avant le mois en cours, ou dans l'année suivante
@@ -162,14 +162,14 @@ public class SalarieAideADomicileService {
      * Met à jour les jours travaillés et congés payés restants de l'année N, décompte ceux de l'année N-1
      * on déduit un jour de congé entier pour chaque absence. Par exemple lors des vacances, pour savoir combien de jours de congés payés sont consommés, même si ladite absence dure seulement une demi-journée.
      * Si dernier mois de l'année, clôture aussi l'année
-     * @param salarieAideADomicile TODO nom ?
+     * @param salarieAideADomicile
      * @param joursTravailles
      */
     public void clotureMois(SalarieAideADomicile salarieAideADomicile, double joursTravailles) throws SalarieException {
         salarieAideADomicile.setJoursTravaillesAnneeN(salarieAideADomicile.getJoursTravaillesAnneeN() + joursTravailles);
 
         salarieAideADomicile.setCongesPayesAcquisAnneeN(salarieAideADomicile.getCongesPayesAcquisAnneeN()
-                + salarieAideADomicile.CongesPayesAcquisParMois);
+                + SalarieAideADomicile.CongesPayesAcquisParMois);
 
         salarieAideADomicile.setMoisEnCours(salarieAideADomicile.getMoisEnCours().plusMonths(1));
 
