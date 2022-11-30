@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class SalarieAideADomicileService {
 
     @Autowired
-    private SalarieAideADomicileRepository salarieAideADomicileRepository;
+    public SalarieAideADomicileRepository salarieAideADomicileRepository;
 
     public SalarieAideADomicileService() {
 

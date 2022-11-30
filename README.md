@@ -94,7 +94,7 @@ passez-vous le clavier au moins entre 2 questions, et indiquez qui le tenait par
 branche "master" et demandez à un autre étudiant de faire la revue de votre code. Les cas échéant, faites les
 corrections demandées.
 
-### TDD
+### TDD -> Alexis
 
 - Faites du TDD pour tester unitairement la méthode `Entreprise.estDansPlage()` : écrire d'abord les tests entièrement (pensez aux cas limites) et seulement ensuite écrivez le code de la méthode. Indiquez dans un commentaire une chose ou deux que vous auriez peut-être fait différemment sans faire de TDD.
 

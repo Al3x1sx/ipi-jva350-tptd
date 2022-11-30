@@ -127,7 +127,7 @@ public final class Entreprise {
     public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
         if(d != null){
             if (d.getMonthValue() > 5){
-                return LocalDate.of(d.getMonthValue(), 6, 1);
+                return LocalDate.of(d.getYear(), 6, 1);
             } else {
                 return LocalDate.of(d.getYear() - 1, 6, 1);
             }
