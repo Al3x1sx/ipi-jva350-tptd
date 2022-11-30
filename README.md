@@ -118,4 +118,6 @@ fichier ne dépasse pas 1 MO.
 - BONUS : Créez une petite documentation statique en utilisant MkDocs.
 - Rédigez **ci-dessous** une courte analyse du rapport produit par Sonar (métriques, évolution, état général...) :
 
-Le rapport Sonar final indique...
+Le rapport Sonar final indique que tous les bugs ont étés corrigés, que la plupars des code smells ont étés corrigées, on est passés de 29 à 9.
+Il indique aussi 0 vulnérabilitées, et 0 failles de sécuritées.
+Il y a pratiquement 50 % de code couvert par les tests mais aussi plus de 3% de duplication de code.
