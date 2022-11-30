@@ -167,7 +167,7 @@ public class SalarieAideADomicileService {
         salarieAideADomicile.setJoursTravaillesAnneeN(salarieAideADomicile.getJoursTravaillesAnneeN() + joursTravailles);
 
         salarieAideADomicile.setCongesPayesAcquisAnneeN(salarieAideADomicile.getCongesPayesAcquisAnneeN()
-                + salarieAideADomicile.congesPayesAcquisParMois);
+                + salarieAideADomicile.CongesPayesAcquisParMois);
 
         salarieAideADomicile.setMoisEnCours(salarieAideADomicile.getMoisEnCours().plusMonths(1));
 
