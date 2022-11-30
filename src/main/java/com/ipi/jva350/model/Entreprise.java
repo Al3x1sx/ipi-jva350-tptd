@@ -1,7 +1,10 @@
 package com.ipi.jva350.model;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class Entreprise {
 
@@ -144,8 +147,7 @@ public final class Entreprise {
     }
 
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
-        // à implémenter en TDD !
-        throw new RuntimeException();
+        return (d.isBefore(fin) && d.isAfter(debut)) || (d.isBefore(fin) && d.isEqual(debut)) || (d.isEqual(fin) && d.isAfter(debut)) || (d.isEqual(fin) && d.isEqual(debut));
     }
 
 }
